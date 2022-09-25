@@ -9,6 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>qa-2022-07-11</module>
+        <module>qa-2022-07-25</module>
         <module>qa-2022-08-08</module>
         <module>qa-2022-08-22</module>
         <module>qa-2022-09-12</module>
