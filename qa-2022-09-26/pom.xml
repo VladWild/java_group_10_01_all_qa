@@ -2,20 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>java_group_10_01_all_qa</artifactId>
+        <groupId>org.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>java_group_10_01_all_qa</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>qa-2022-07-11</module>
-        <module>qa-2022-07-25</module>
-        <module>qa-2022-08-08</module>
-        <module>qa-2022-08-22</module>
-        <module>qa-2022-09-12</module>
-        <module>qa-2022-09-26</module>
-    </modules>
+    <artifactId>qa-2022-09-26</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
