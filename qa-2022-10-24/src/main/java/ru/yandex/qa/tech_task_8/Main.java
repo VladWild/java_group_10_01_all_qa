@@ -1,15 +1,19 @@
 package ru.yandex.qa.tech_task_8;
 
-import ru.yandex.qa.tech_task_8.manager.impl.FileBackedTaskManager;
+import com.google.gson.Gson;
+import ru.yandex.qa.tech_task_8.http.KVTaskClient;
+import ru.yandex.qa.tech_task_8.manager.Managers;
 import ru.yandex.qa.tech_task_8.tasks.Task;
 
-import java.io.File;
+import java.util.Collections;
 
 public class Main {
 
     public static void main(String[] args) {
-        FileBackedTaskManager fileBackedTaskManager =
-                new FileBackedTaskManager(new File("qa-2022-10-24/src/main/resources/tasks.csv"));
-        fileBackedTaskManager.addNewTask(new Task(1));
+        KVTaskClient kvTaskClient = new KVTaskClient();
+        Gson gson = Managers.getGson();
+
+        String jsonStr = gson.toJson(Collections.singletonList(new Task(1)));
+        kvTaskClient.save("tasks", jsonStr);
     }
 }
