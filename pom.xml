@@ -18,6 +18,7 @@
         <module>hard-2022-10-08-streams</module>
         <module>qa-2022-10-10</module>
         <module>qa-2022-10-24</module>
+        <module>qa-2022-11-14</module>
     </modules>
 
     <properties>
