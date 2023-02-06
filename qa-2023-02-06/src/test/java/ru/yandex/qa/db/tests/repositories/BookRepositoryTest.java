@@ -133,9 +133,6 @@ class BookRepositoryTest extends JpaH2Runner {
             System.out.println(optionalBook.get().getTitle());
         }
 
-        //------------------------------
-        //можно сделать это через save
-
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
             book.setTitle("Гарри Поттер и Тайная комната");
@@ -181,7 +178,7 @@ class BookRepositoryTest extends JpaH2Runner {
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void pageBook() {
-        Page<Book> books = bookRepository.findAll(PageRequest.of(0, 2));
+        Page<Book> books = bookRepository.findAll(PageRequest.of(1, 2));
         System.out.println(books);
     }
 }
