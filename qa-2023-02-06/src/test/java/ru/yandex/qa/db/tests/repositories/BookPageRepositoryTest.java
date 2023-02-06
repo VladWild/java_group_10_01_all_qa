@@ -13,6 +13,11 @@ import ru.yandex.qa.db.tests.JpaH2Runner;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 3) Пример связей one-to-many и many-to-one
+ *    У одной книги есть много страниц
+ *    У многих страниц есть одна книга
+ */
 @ContextConfiguration(classes = {BookRepository.class, PageRepository.class})
 public class BookPageRepositoryTest extends JpaH2Runner {
 
@@ -22,6 +27,9 @@ public class BookPageRepositoryTest extends JpaH2Runner {
     @Autowired
     private BookRepository bookRepository;
 
+    /**
+     * Тест сохранения страницы
+     */
     @Test
     void saveTest() {
         Page page = new Page();

@@ -37,4 +37,12 @@ public class Page extends BaseModel<String> {
     public void setBook(Book book) {
         this.book = book;
     }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "text='" + text + '\'' +
+                ", book=" + book +
+                '}';
+    }
 }

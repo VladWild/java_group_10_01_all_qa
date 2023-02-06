@@ -59,6 +59,7 @@ public class Book extends BaseModel<Long> {
     public String toString() {
         return "Book{" +
                 "title='" + title + '\'' +
+                ", authors='" + authors + '\'' +
                 ", id=" + id +
                 '}';
     }

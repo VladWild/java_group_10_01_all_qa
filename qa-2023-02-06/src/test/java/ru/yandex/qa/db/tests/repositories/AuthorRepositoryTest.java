@@ -10,16 +10,24 @@ import ru.yandex.qa.db.model.BookAuthor;
 import ru.yandex.qa.db.repositories.AuthorRepository;
 import ru.yandex.qa.db.repositories.BookAuthorRepository;
 import ru.yandex.qa.db.repositories.BookRepository;
+import ru.yandex.qa.db.service.AuthorBookService;
 import ru.yandex.qa.db.tests.JpaH2Runner;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 4) Пример связи many-to-many
+ *    У одной книги есть много авторов
+ *    У одного автора есть много книг
+ *    или
+ *    У многих авторов есть многие книги
+ */
 @ContextConfiguration(classes = {
         BookRepository.class,
         AuthorRepository.class,
-        //AuthorBookService.class,
+        AuthorBookService.class,
         BookAuthorRepository.class
 })
 public class AuthorRepositoryTest extends JpaH2Runner {
@@ -30,12 +38,15 @@ public class AuthorRepositoryTest extends JpaH2Runner {
     @Autowired
     private AuthorRepository authorRepository;
 
-    /*@Autowired
-    private AuthorBookService authorBookService;*/
+    @Autowired
+    private AuthorBookService authorBookService;
 
     @Autowired
     private BookAuthorRepository bookAuthorRepository;
 
+    /**
+     * Получение книг и авторов у них
+     */
     @Test
     @Sql(value = {
             "classpath:sql/author/add_author.sql",
@@ -47,6 +58,9 @@ public class AuthorRepositoryTest extends JpaH2Runner {
         System.out.println(books);
     }
 
+    /**
+     * Сохранение созданых авторов и книг
+     */
     @Test
     void saveBooksWithAuthorsTest() {
         Book book = new Book();
@@ -70,8 +84,14 @@ public class AuthorRepositoryTest extends JpaH2Runner {
         List<Book> books = bookRepository.saveAllAndFlush(Arrays.asList(book, book2));
 
         System.out.println(books);
+
+        List<Book> booksFromDb = bookRepository.findAll();
+        System.out.println(booksFromDb);
     }
 
+    /**
+     * Сохранение созданых авторов и книг в рамках одной транзакции
+     */
     @Test
     void saveBooksWithAuthorsTest2() {
         Book book = new Book();
@@ -89,27 +109,24 @@ public class AuthorRepositoryTest extends JpaH2Runner {
         book.setAuthors(Set.of(author, author2));
         book2.setAuthors(Set.of(author));
 
-        /*authorBookService.saveAuthorWithBook(
+        authorBookService.saveAuthorWithBook(
                 Arrays.asList(author, author2),
                 Arrays.asList(book, book2)
-        );*/
+        );
 
         List<Book> books = bookRepository.findAll();
         System.out.println(books);
     }
 
+    /**
+     * Связывание уже имеющихся авторов и книг
+     */
     @Test
     @Sql({
             "classpath:sql/author/add_author.sql",
             "classpath:sql/book/add_book.sql"
     })
     void bookAuthorRepositoryTest() {
-        /*List<Book> books = bookRepository.findAll();
-        List<Author> authors = authorRepository.findAll();
-
-        System.out.println(books);
-        System.out.println(authors);*/
-
         bookAuthorRepository.saveAllAndFlush(Arrays.asList(
                 new BookAuthor(5L, 10L),
                 new BookAuthor(1L, 20L)

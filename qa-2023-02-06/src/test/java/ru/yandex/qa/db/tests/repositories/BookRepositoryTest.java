@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 2) Jpa-репозиторий
+ * 2) Jpa-репозиторий на примере BookRepository
  */
 @ContextConfiguration(classes = BookRepository.class)
 class BookRepositoryTest extends JpaH2Runner {
@@ -106,13 +106,27 @@ class BookRepositoryTest extends JpaH2Runner {
         System.out.println(all);
     }
 
-    // остановился здесь
-
+    /**
+     * Обновить книгу в БД (через update)
+     */
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void updateBookTest() {
         bookRepository.updateTitle(1L, "Гарри Поттер и Филосовский камень");
 
+        Optional<Book> optionalBook = bookRepository.findById(1L);
+
+        if (optionalBook.isPresent()) {
+            System.out.println(optionalBook.get().getTitle());
+        }
+    }
+
+    /**
+     * Обновить книгу в БД (через save)
+     */
+    @Test
+    @Sql("classpath:sql/book/add_book.sql")
+    void updateBookTest2() {
         Optional<Book> optionalBook = bookRepository.findById(1L);
 
         if (optionalBook.isPresent()) {
@@ -125,11 +139,20 @@ class BookRepositoryTest extends JpaH2Runner {
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
             book.setTitle("Гарри Поттер и Тайная комната");
-            Book save = bookRepository.save(book);
-            System.out.println(save.getTitle());
+            Book bookSave = bookRepository.saveAndFlush(book);
+            System.out.println(bookSave);
+        }
+
+        Optional<Book> optionalBookUpdated = bookRepository.findById(1L);
+
+        if (optionalBookUpdated.isPresent()) {
+            System.out.println(optionalBook.get().getTitle());
         }
     }
 
+    /**
+     * Удаление книги по id
+     */
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void deleteBookTest() {
@@ -139,6 +162,22 @@ class BookRepositoryTest extends JpaH2Runner {
         System.out.println(books);
     }
 
+    /**
+     * Удаление книги по id с flush
+     */
+    @Test
+    @Sql("classpath:sql/book/add_book.sql")
+    void deleteBookTest2() {
+        bookRepository.deleteById(1L);
+        bookRepository.flush();
+
+        List<Book> books = bookRepository.findAll();
+        System.out.println(books);
+    }
+
+    /**
+     * Пагинация в JPA
+     */
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void pageBook() {
