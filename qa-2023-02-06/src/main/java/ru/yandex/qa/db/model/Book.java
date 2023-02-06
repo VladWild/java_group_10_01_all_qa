@@ -1,8 +1,8 @@
 package ru.yandex.qa.db.model;
 
+import jakarta.persistence.*;
 import ru.yandex.qa.db.model.base.BaseModel;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

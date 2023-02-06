@@ -1,9 +1,8 @@
 package ru.yandex.qa.db.model;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import ru.yandex.qa.db.model.base.BaseModel;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "pages")

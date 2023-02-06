@@ -13,12 +13,18 @@ import ru.yandex.qa.db.tests.JpaH2Runner;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 2) Jpa-репозиторий
+ */
 @ContextConfiguration(classes = BookRepository.class)
 class BookRepositoryTest extends JpaH2Runner {
 
     @Autowired
     private BookRepository bookRepository;
 
+    /**
+     * Найти все книги в бд
+     */
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void findAllTest() {
@@ -26,6 +32,9 @@ class BookRepositoryTest extends JpaH2Runner {
         System.out.println(books);
     }
 
+    /**
+     * Найти книгу в бд по id
+     */
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void findByIdTest() {
@@ -36,6 +45,9 @@ class BookRepositoryTest extends JpaH2Runner {
         }
     }
 
+    /**
+     * Найти книги в бд по названию
+     */
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void findByTitleTest() {
@@ -43,6 +55,10 @@ class BookRepositoryTest extends JpaH2Runner {
         System.out.println(books);
     }
 
+    /**
+     * Найти книги в бд по названию
+     * (собственный jpql-запрос в @Query)
+     */
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void findByTitleTest2() {
@@ -50,6 +66,9 @@ class BookRepositoryTest extends JpaH2Runner {
         System.out.println(books);
     }
 
+    /**
+     * Найти книги в бд по id и названию
+     */
     @Test
     @Sql("classpath:sql/book/add_book.sql")
     void findByIdAndTitleTest() {
@@ -57,17 +76,37 @@ class BookRepositoryTest extends JpaH2Runner {
         System.out.println(book);
     }
 
+    /**
+     * Сохранить книгу в бд в persistence context'е
+     */
     @Test
     void saveTest() {
         Book book = new Book();
         book.setTitle("Моя книга");
 
-        Book bookSave = bookRepository.saveAndFlush(book);
+        Book bookSave = bookRepository.save(book);
+        System.out.println(bookSave);
 
         List<Book> all = bookRepository.findAll();
-
         System.out.println(all);
     }
+
+    /**
+     * Сохранить книгу в бд сразу на прямую c flush
+     */
+    @Test
+    void saveTest2() {
+        Book book = new Book();
+        book.setTitle("Моя книга");
+
+        Book bookSave = bookRepository.saveAndFlush(book);
+        System.out.println(bookSave);
+
+        List<Book> all = bookRepository.findAll();
+        System.out.println(all);
+    }
+
+    // остановился здесь
 
     @Test
     @Sql("classpath:sql/book/add_book.sql")
