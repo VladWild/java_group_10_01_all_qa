@@ -7,10 +7,12 @@ insert into book (id, name) values (2, 'Гарри Поттер и Тайная 
 insert into book (id, name) values (3, 'Метро 2033');
 insert into book (id, name) values (4, 'Метро 2034');
 insert into book (id, name) values (5, 'Голодные игры');
+ALTER TABLE book ALTER COLUMN id RESTART WITH 6;
 
 insert into author (id, name) values (1, 'Джоан Роулинг');
 insert into author (id, name) values (2, 'Дмитрий Глуховский');
 insert into author (id, name) values (3, 'Сьюзен Коллинз');
+ALTER TABLE author ALTER COLUMN id RESTART WITH 4;
 
 insert into book_author (book_id, author_id) values (1, 1);
 insert into book_author (book_id, author_id) values (1, 2);
