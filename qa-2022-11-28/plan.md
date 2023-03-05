@@ -18,5 +18,5 @@
    5) High Cohesion 
    6) Low Coupling
 
- 
+
 
