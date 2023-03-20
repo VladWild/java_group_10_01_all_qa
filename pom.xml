@@ -23,6 +23,7 @@
         <module>qa-2023-02-06</module>
         <module>qa-2023-02-20</module>
         <module>qa-2023-03-06</module>
+        <module>qa-2023-03-20</module>
     </modules>
 
     <properties>
